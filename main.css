@@ -1,0 +1,9 @@
+body{
+  background: -webkit-linear-gradient(90deg, #01a99c 10%, #0698b1 90%); /* Chrome 10+, Saf5.1+ */ background: -moz-linear-gradient(90deg, #01a99c 10%, #0698b1 90%); /* FF3.6+ */ background:     linear-gradient(90deg, #01a99c 10%, #0698b1 90%); /* W3C */
+	margin:0;
+
+}
+
+#container{
+  
+}
