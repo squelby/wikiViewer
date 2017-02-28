@@ -57,7 +57,7 @@ function closeSearch() {
 }
 
 function formSubmit() {
-    var urlBuild = "http://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=" + search_string + "&format=json";
+    var urlBuild = "https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=" + search_string + "&format=json";
     console.log(urlBuild);
     $.ajax({
         url: urlBuild,
