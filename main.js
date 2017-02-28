@@ -1,57 +1,85 @@
-//api key 90960496dfd147611e1a6639d58febc7
-//**************** use this for location: http://ip-api.com/json
-var unitType = "imperial";
-
+var query_endpoint = "https://en.wikipedia.org/w/api.php";
+var search_string = "test";
+/*
+format=json
+https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&continue=&srsearch=wikipedia&srwhat=text&srprop=timestamp
+*/
 function init() {
-    getData();
-    $("#toggle").click(function() {
-         $( "#container" ).fadeOut( "slow", function() {
-            if (unitType === "imperial") {
-            unitType = "metric";
-            $("#toggle").html("Change to fahrenheit");
-        } else {
-            unitType = "imperial";
-            $("#toggle").html("Change to celsius");
-        }
-        console.log("unit type = " + unitType);
-        getData();
+    //event listeners
+    $("#search_btn").click(function() {
+        searchClick();
     });
-  });
-        
-}
-
-function getData() {
-    //testing
-    $.getJSON("http://ip-api.com/json", function(data) {
-        city = data.city;
-        apiCall(city);
+    $("#close_btn").click(function() {
+        closeSearch();
     });
-    //AJAX request
-}
-
-function apiCall(city) {
-    console.log("city= "+ city);
-    console.log("http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=" + unitType + "&APPID=90960496dfd147611e1a6639d58febc7");
-    $.getJSON("http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=" + unitType + "&APPID=90960496dfd147611e1a6639d58febc7", function(data) {
-        updateWeather(data); //Update Weather parameters
+    $("#form_search_btn").click(function(e) {
+        e.preventDefault();
+        formSubmit();
     });
-}
-
-function updateWeather(json) {
-    var mainDes = json.weather[0].main;
-    var country = json.sys.country;
-    var city = json.name;
-    var temp = json.main.temp;
-    var iconCode = json.weather[0].icon
-    var tempUnit;
-    if (unitType === "imperial") {
-        tempUnit = " °F";
-    } else {
-        tempUnit = " °C";
+    //form events
+    $("#search_form").focus(function() {
+    	var fmValue = $("#search_form").val();
+    	if(fmValue === "Search Wikipedia"){
+        $("#search_form").val('');
     }
-    $("#location").html(city + ", " + country);
-    $("#temp").html(mainDes + " | " + temp + tempUnit);
-    $("#icon").html('<img src= "http://openweathermap.org/img/w/' + iconCode + '.png">');
-         $( "#container" ).fadeIn( "slow", function() {
-  });
+    });
+
+    $("#search_form").focusout(function() {
+        var fmValue = $("#search_form").val();
+        console.log(fmValue);
+        if (fmValue === "") {
+            $("#search_form").val('Search Wikipedia');
+        }
+    });
+}
+
+function searchClick() {
+    $("#main_form").css("display", "block");
+    $("#initial_state").animate({
+        top: "-=500px",
+    }, 500);
+    $("#main_form").animate({
+        marginTop: "-=300px",
+        opacity: "1"
+    }, 500);
+}
+
+function closeSearch() {
+    $("#initial_state").animate({
+        top: "+=500px",
+    }, 500);
+    $("#main_form").animate({
+        marginTop: "+=300px",
+        opacity: "0"
+    }, 500, function() {
+        $("#main_form").css("display", "none")
+    });
+}
+
+function formSubmit() {
+    var urlBuild = "http://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=" + search_string + "&format=json";
+    console.log(urlBuild);
+    $.ajax({
+        url: urlBuild,
+        type: "post",
+        format: 'json',
+        dataType: 'jsonp',
+        cache: false,
+        success: function(data, status, error) {
+            console.log('success', data);
+        },
+        error: function(data, status, error) {
+            console.log('error', data, status, error);
+        }
+    });
+}
+
+function processResult(apiResult) {
+	movetoResultsLayout();
+    console.log(apiResult);
+}
+
+
+function movetoResultsLayout(){
+
 }
