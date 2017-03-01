@@ -6,25 +6,25 @@ https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&continue
 */
 function init() {
     //event listeners
-    $("#search_btn").click(function() {
+    $("#search_btn").click(function () {
         searchClick();
     });
-    $("#close_btn").click(function() {
+    $("#close_btn").click(function () {
         closeSearch();
     });
-    $("#form_search_btn").click(function(e) {
+    $("#form_search_btn").click(function (e) {
         e.preventDefault();
         formSubmit();
     });
     //form events
-    $("#search_form").focus(function() {
-    	var fmValue = $("#search_form").val();
-    	if(fmValue === "Search Wikipedia"){
-        $("#search_form").val('');
-    }
+    $("#search_form").focus(function () {
+        var fmValue = $("#search_form").val();
+        if (fmValue === "Search Wikipedia") {
+            $("#search_form").val('');
+        }
     });
 
-    $("#search_form").focusout(function() {
+    $("#search_form").focusout(function () {
         var fmValue = $("#search_form").val();
         console.log(fmValue);
         if (fmValue === "") {
@@ -39,7 +39,7 @@ function searchClick() {
         top: "-=500px",
     }, 500);
     $("#main_form").animate({
-        marginTop: "-=300px",
+        marginTop: "-300px",
         opacity: "1"
     }, 500);
 }
@@ -49,9 +49,9 @@ function closeSearch() {
         top: "+=500px",
     }, 500);
     $("#main_form").animate({
-        marginTop: "+=300px",
+        marginTop: "0px",
         opacity: "0"
-    }, 500, function() {
+    }, 500, function () {
         $("#main_form").css("display", "none")
     });
 }
@@ -65,21 +65,28 @@ function formSubmit() {
         format: 'json',
         dataType: 'jsonp',
         cache: false,
-        success: function(data, status, error) {
-            console.log('success', data);
+        success: function (data, status, error) {
+            processResult(data);
         },
-        error: function(data, status, error) {
+        error: function (data, status, error) {
             console.log('error', data, status, error);
         }
     });
 }
 
 function processResult(apiResult) {
-	movetoResultsLayout();
+
+    movetoResultsLayout();
     console.log(apiResult);
 }
 
 
-function movetoResultsLayout(){
+function movetoResultsLayout() {
+    $("#main_form").animate({
+        marginTop: "-=175px",
 
+    }, 500, function () {
+
+    });
 }
+
