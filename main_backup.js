@@ -1,20 +1,5 @@
-
-/*
-to do:
-
-Finish styling results boxes
-Add json data to boxes/display with links
-Reset and reparse/populate on new search
-Add rollover action to boxes
-
-
-
-
-
-*/
 var query_endpoint = "https://en.wikipedia.org/w/api.php";
 var search_string = "test";
-var state = 1;
 /*
 format=json
 https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&continue=&srsearch=wikipedia&srwhat=text&srprop=timestamp
@@ -57,8 +42,6 @@ function searchClick() {
         marginTop: "-300px",
         opacity: "1"
     }, 500);
-
-    state = 2;
 }
 
 function closeSearch() {
@@ -71,7 +54,6 @@ function closeSearch() {
     }, 500, function () {
         $("#main_form").css("display", "none")
     });
-    state = 1;
 }
 
 function formSubmit() {
@@ -95,16 +77,19 @@ function formSubmit() {
 
 function processResult(apiResult) {
     console.log(apiResult);
-    if(state === 2){
     movetoResultsLayout();
-     }
-     state = 3;
-    $.each(apiResult.query.pages, function (index, value) {
-        console.log(value.title);
-        console.log(value.extract);
-        console.log(value.fullurl);
+    //console.log(Object.keys(apiResult.query.pages)[0]);
+    $("container")html
+    for (var key in apiResult.query.pages) {
+  console.log(key, apiResult.query.pages[key].extract);
+}
+    for (var i = 0; i < Object.keys(apiResult.query.pages).length; i++) {
 
-    });
+        //console.log(apiResult.query.pages[i].title);
+        // console.log(apiResult.query.pages[i].fullurl);
+        // console.log(apiResult.query.pages[i].extract);
+
+    }
 }
 
 
