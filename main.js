@@ -1,16 +1,8 @@
 
 /*
 to do:
-
 Finish styling results boxes
-Add json data to boxes/display with links
-Reset and reparse/populate on new search
 Add rollover action to boxes
-
-
-
-
-
 */
 var query_endpoint = "https://en.wikipedia.org/w/api.php";
 var search_string = "test";
@@ -72,6 +64,7 @@ function closeSearch() {
         $("#main_form").css("display", "none")
     });
     state = 1;
+    $("#results_all").html("");
 }
 
 function formSubmit() {
@@ -94,17 +87,16 @@ function formSubmit() {
 }
 
 function processResult(apiResult) {
-    console.log(apiResult);
-    if(state === 2){
-    movetoResultsLayout();
-     }
-     state = 3;
+    var tempString = "";
     $.each(apiResult.query.pages, function (index, value) {
-        console.log(value.title);
-        console.log(value.extract);
-        console.log(value.fullurl);
-
+        tempString += '<a href="' + value.fullurl + 'target="_new"><div id="results_box"><div class="results_box"><h2>' + value.title + '</h2><br>' + value.extract + '</div></a>';
     });
+    console.log(tempString);
+    $("#results_all").html(tempString);
+    if (state === 2) {
+        movetoResultsLayout();
+    }
+    state = 3;
 }
 
 

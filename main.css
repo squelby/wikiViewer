@@ -115,13 +115,14 @@ a:active {
 
 #results_all{
 	width:100%;
-	margin-top:200px;
+		margin-top:200px;
 }
 .results_box{
 	width:80%;
 	background-color:rgba(0, 0, 0, 0.5);
 	margin:8px auto 8px auto;
 	border-left:gray solid 6px;
-	height:100px;
 	padding:10px;
+
+
 }
