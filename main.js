@@ -89,23 +89,26 @@ function formSubmit() {
 function processResult(apiResult) {
     var tempString = "";
     $.each(apiResult.query.pages, function (index, value) {
-        tempString += '<a href="' + value.fullurl + 'target="_new"><div id="results_box"><div class="results_box"><h2>' + value.title + '</h2><br>' + value.extract + '</div></a>';
+        tempString += '<a href="' + value.fullurl + 'target="_new"><div id="results_box"><div class="results_box"><h2>' + value.title + '</h2><br><div class="excerpt">' + value.extract + '</div></div></a>';
     });
     console.log(tempString);
-    $("#results_all").html(tempString);
+    //$("#results_all").html(tempString);
     if (state === 2) {
-        movetoResultsLayout();
+        movetoResultsLayout(tempString);
+    }else{
+        console.log(tempString);
+        $("#results_all").html(tempString);
     }
     state = 3;
 }
 
 
-function movetoResultsLayout() {
+function movetoResultsLayout(tempString) {
     $("#main_form").animate({
         marginTop: "-=175px",
 
     }, 500, function () {
-
+        $("#results_all").html(tempString);
     });
 }
 

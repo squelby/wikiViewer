@@ -11,6 +11,10 @@ body{
 	font-family: 'Roboto', sans-serif;
 }
 
+h2{
+	margin-bottom: 5px;
+}
+
 #backgroundHold{
   opacity:0;
 }
@@ -116,13 +120,28 @@ a:active {
 #results_all{
 	width:100%;
 		margin-top:200px;
+		 margin-bottom: 20px;
 }
 .results_box{
 	width:80%;
 	background-color:rgba(0, 0, 0, 0.5);
 	margin:8px auto 8px auto;
-	border-left:gray solid 6px;
+		border-left:gray solid 6px;
 	padding:10px;
+	transition: background-color 2s ease-out;
+	/*transition: border-left 2s ease-out;*/
+}
 
+.results_box:hover{
+	 background-color:rgba(0, 0, 0, 0.8);
 
+	 border-left:#333 solid 6px;
+}
+
+.excerpt{
+	margin:0;
+}
+
+.excerpt p{
+	margin:0;
 }
